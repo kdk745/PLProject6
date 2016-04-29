@@ -28,6 +28,14 @@ def let(l):
 
 name['let'] = let
 
+def _if(l):
+    if l[0] == True:
+        return l[1]
+    elif l[0] == False:
+        return l[2]
+
+name["if"] = _if
+
 def concat(l):
     return l[0] + l[1]
 
@@ -85,17 +93,31 @@ name['+'] = add
 
 def minus(l):
     '''Unary minus'''
-
-    for i in l:
-        if type(i) is str:
-            i = name[i][0]
-            l[0] -= i
-    print l[0]
-
-
-    return l[0]
+    if type(l[0]) is str:
+        l[0] = name[l[0]][0]
+    elif type(l[1]) is str:
+        l[1] = name[l[1]][0]
+    return l[0] - l[1]
 
 name['-'] = minus
+
+def mult(l):
+    if type(l[0]) is str:
+        l[0] = name[l[0]][0]
+    elif type(l[1]) is str:
+        l[1] = name[l[1]][0]
+    return l[0] * l[1]
+
+name['*'] = mult
+
+def div(l):
+    if type(l[0]) is str:
+        l[0] = name[l[0]][0]
+    elif type(l[1]) is str:
+        l[1] = name[l[1]][0]
+    return l[0] / l[1]
+
+name['/'] = div
 
 def _print(l):
     print lisp_str(l[0])
